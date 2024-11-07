@@ -8,6 +8,7 @@ import (
 	"github.com/free5gc/amf/internal/context"
 	gmm_common "github.com/free5gc/amf/internal/gmm/common"
 	gmm_message "github.com/free5gc/amf/internal/gmm/message"
+	"github.com/free5gc/amf/internal/logger"
 	amf_nas "github.com/free5gc/amf/internal/nas"
 	"github.com/free5gc/amf/internal/nas/nas_security"
 	ngap_message "github.com/free5gc/amf/internal/ngap/message"
@@ -34,6 +35,7 @@ func handleNGSetupRequestMain(ran *context.AmfRan,
 	if rANNodeName != nil {
 		ran.Name = rANNodeName.Value
 	}
+	logger.UtilLog.Debugf("New RAN: %s", ran.RanID())
 	if pagingDRX != nil {
 		ran.Log.Tracef("PagingDRX[%d]", pagingDRX.Value)
 	}
