@@ -392,29 +392,40 @@ func (context *AMFContext) AmfRanFindByRanID(ranNodeID models.GlobalRanNodeId) (
 	context.AmfRanPool.Range(func(key, value interface{}) bool {
 		amfRan := value.(*AmfRan)
 		if amfRan.RanId == nil {
+			logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: comparison to nil RanId")
 			return true
 		}
+		logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: comparison to Ran Node Id[%+v]", amfRan)
 
 		switch amfRan.RanPresent {
 		case RanPresentGNbId:
+			logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: RanPresent")
 			if amfRan.RanId.GNbId != nil && ranNodeID.GNbId != nil &&
 				amfRan.RanId.GNbId.GNBValue == ranNodeID.GNbId.GNBValue {
 				ran = amfRan
 				ok = true
+				logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: equal")
 				return false
 			}
+			logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: not equal")
 		case RanPresentNgeNbId:
+			logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: RanPresentNgeNbId")
 			if amfRan.RanId.NgeNbId == ranNodeID.NgeNbId {
 				ran = amfRan
 				ok = true
+				logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: equal")
 				return false
 			}
+			logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: not equal")
 		case RanPresentN3IwfId:
+			logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: RanPresentN3IwfId")
 			if amfRan.RanId.N3IwfId == ranNodeID.N3IwfId {
 				ran = amfRan
 				ok = true
+				logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: equal")
 				return false
 			}
+			logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: not equal")
 		}
 		return true
 	})
