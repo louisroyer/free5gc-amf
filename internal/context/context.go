@@ -399,14 +399,19 @@ func (context *AMFContext) AmfRanFindByRanID(ranNodeID models.GlobalRanNodeId) (
 
 		switch amfRan.RanPresent {
 		case RanPresentGNbId:
-			logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: RanPresent")
+			logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: RanPresentGNbId")
 			if amfRan.RanId.GNbId != nil && ranNodeID.GNbId != nil &&
 				amfRan.RanId.GNbId.GNBValue == ranNodeID.GNbId.GNBValue {
 				ran = amfRan
 				ok = true
 				logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: equal")
 				return false
+			} else if amfRan.RanId.GNbId != nil && ranNodeID.GNbId != nil {
+				logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: local `%+v`  remote `%+v`", amfRan.RanId.GNbId.GNBValue, ranNodeID.GNbId.GNBValue)
+			} else {
+				logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: nil values")
 			}
+
 			logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: not equal")
 		case RanPresentNgeNbId:
 			logger.UtilLog.Debugf("AMFContext::AmfRanFindyRanID: RanPresentNgeNbId")
